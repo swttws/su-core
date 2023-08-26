@@ -1,0 +1,9 @@
+su:
+  redis:
+    namespace: app:${su.applicationName}
+    pool:
+      pool-size: 20
+      idle-size: 5
+      idle-timeout: 60000
+      connection-timeout: 3000
+      timeout: 10000
