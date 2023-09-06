@@ -1,6 +1,6 @@
 su:
   redis:
-    namespace: app:${su.applicationName}
+    namespace: app:${spring.application.name}
     pool:
       pool-size: 20
       idle-size: 5
