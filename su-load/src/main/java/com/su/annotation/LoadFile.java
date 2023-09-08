@@ -6,7 +6,7 @@ import java.lang.annotation.*;
  * @author suweitao
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
+@Target(ElementType.TYPE)
 @Documented
 public @interface LoadFile {
 

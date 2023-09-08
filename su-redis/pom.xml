@@ -22,6 +22,11 @@
     </parent>
 
     <dependencies>
+        <dependency>
+            <groupId>com.su</groupId>
+            <artifactId>su-load</artifactId>
+            <version>1.0.0</version>
+        </dependency>
         <!--        redis-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
