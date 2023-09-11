@@ -3,6 +3,7 @@ package com.su.config;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
 import com.su.annotation.LoadFile;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -24,6 +25,28 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @AutoConfigureBefore(RedisAutoConfiguration.class)
 @LoadFile(filePath = "classpath:/su-redis.yml")
 public class RedisConfig {
+
+    /**
+     * Redis序列化设置
+     *
+     * @return RedisSerializer
+     */
+    @Bean(name = "redisSerializer")
+    @ConditionalOnMissingBean(RedisSerializer.class)
+    public RedisSerializer<Object> redisSerializer(ObjectMapper objectMapper) {
+        // 使用 Jackson2JsonRedisSerializer 序列化和反序列化redis的value值
+        Jackson2JsonRedisSerializer<Object> jsonRedisSerializer = new Jackson2JsonRedisSerializer<>(Object.class);
+
+        // 建立RedisObjectMapper
+        ObjectMapper redisObjectMapper = objectMapper.copy();
+        // 指定要序列化的域
+        redisObjectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+        // 指定序列化输入的类型必须是非final修饰
+        redisObjectMapper.activateDefaultTyping(LaissezFaireSubTypeValidator.instance, ObjectMapper.DefaultTyping.NON_FINAL);
+
+        jsonRedisSerializer.setObjectMapper(redisObjectMapper);
+        return jsonRedisSerializer;
+    }
 
     @Bean
     public RedisTemplate<String,Object> redisTemplate(RedisConnectionFactory factory,RedisSerializer<Object> redisSerializer){

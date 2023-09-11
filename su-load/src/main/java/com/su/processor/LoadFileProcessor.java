@@ -3,24 +3,26 @@ package com.su.processor;
 import com.su.annotation.LoadFile;
 import com.su.entity.LoadFileEntity;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.boot.env.PropertySourceLoader;
-import org.springframework.boot.env.YamlPropertySourceLoader;
-import org.springframework.core.annotation.Order;
+import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.core.env.ConfigurableEnvironment;
-import org.springframework.core.env.Environment;
 import org.springframework.core.env.MutablePropertySources;
 import org.springframework.core.env.PropertySource;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.SpringFactoriesLoader;
-import org.springframework.stereotype.Component;
+
+import org.springframework.util.ClassUtils;
 import org.springframework.util.ObjectUtils;
 
 import java.io.IOException;
+import java.lang.annotation.Annotation;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
@@ -70,9 +72,9 @@ public class LoadFileProcessor implements BeanFactoryPostProcessor {
         Map<String, Object> loadFileBeans = beanFactory.getBeansWithAnnotation(LoadFile.class);
         //将存储容器转换为list集合
         List<LoadFileEntity> loadFileEntityList = loadFileBeans.values().stream().map(bean -> {
-            Class<?> clazz = bean.getClass();
+            Class<?> clazz = ClassUtils.getUserClass(bean);
             //获取对应的注解
-            LoadFile annotation = clazz.getAnnotation(LoadFile.class);
+            LoadFile annotation = AnnotationUtils.getAnnotation(clazz, LoadFile.class);
             if (ObjectUtils.isEmpty(annotation)) {
                 return null;
             }
@@ -88,15 +90,15 @@ public class LoadFileProcessor implements BeanFactoryPostProcessor {
             String extension = loadFile.getExtension();
             PropertySourceLoader propertySourceLoader = loaderMap.get(extension);
             //获取不到对应扩展名资源加载器
-            if(ObjectUtils.isEmpty(propertySourceLoader)){
-                throw new IllegalStateException("加载资源【"+loadFile.getFilePath()+"】错误,请检查对应扩展名是否正确");
+            if (ObjectUtils.isEmpty(propertySourceLoader)) {
+                throw new IllegalStateException("加载资源【" + loadFile.getFilePath() + "】错误,请检查对应扩展名是否正确");
             }
             //加载资源
             Resource resource = resourceLoader.getResource(loadFile.getFilePath());
             //读取资源配置到全局配置中
             try {
                 List<PropertySource<?>> load = propertySourceLoader.load(loadFile.getFilePath(), resource);
-                log.info("资源加载：【"+loadFile.getFilePath()+"]");
+                log.info("资源加载：【" + loadFile.getFilePath() + "]");
                 propertySourceList.addAll(load);
             } catch (IOException ioException) {
                 throw new RuntimeException(ioException);
@@ -111,5 +113,4 @@ public class LoadFileProcessor implements BeanFactoryPostProcessor {
             propertySources.addLast(propertySource);
         }
     }
-
 }
