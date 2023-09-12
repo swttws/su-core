@@ -1,6 +1,6 @@
 su:
   document:
-    name: ${su.document.title} #网站标题
+    title: ${su.document.title} #网站标题
     description: ${su.document.desciption} #文档描述
     username: ${su.document.username} #联系人姓名
     email: ${su.document.email} #联系人邮箱
