@@ -29,7 +29,7 @@ public class RedissonLockAspect {
     /**
      * redis命名空间
      */
-    @Value("${su.redis.namesapce}")
+    @Value("${su.redis.namespace}")
     private String redisNameSpace;
 
     @Autowired
