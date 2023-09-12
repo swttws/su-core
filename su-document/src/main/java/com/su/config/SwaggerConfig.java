@@ -37,9 +37,13 @@ public class SwaggerConfig {
     @Value("${su.document.scaPacket}")
     private String scanPacket;
 
+    @Value("${su.document.enable}")
+    private Boolean enable;
+
     @Bean
     Docket docket() {
         return new Docket(DocumentationType.OAS_30)
+                .enable(enable)
                 //配置网站的基本信息
                 .apiInfo(new ApiInfoBuilder()
                         //网站标题
