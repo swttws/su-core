@@ -12,6 +12,7 @@
         <module>su-redis</module>
         <module>su-load</module>
         <module>su-document</module>
+        <module>su-database</module>
     </modules>
 
     <properties>
