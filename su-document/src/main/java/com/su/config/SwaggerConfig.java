@@ -4,7 +4,9 @@ import com.su.annotation.LoadFile;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.oas.annotations.EnableOpenApi;
 import springfox.documentation.service.Contact;
@@ -17,31 +19,30 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * swagger配置类
  */
 @Configuration
-@EnableSwagger2
 @EnableOpenApi
 @LoadFile(filePath = "classpath:/su-document.yml")
 public class SwaggerConfig {
 
-    @Value("${su.document.title}")
+    @Value("${document.title}")
     private String title;
 
-    @Value("${su.document.description}")
+    @Value("${document.description}")
     private String description;
 
-    @Value("${su.document.username}")
+    @Value("${document.username}")
     private String username;
 
-    @Value("${su.document.email}")
+    @Value("${document.email}")
     private String email;
 
-    @Value("${su.document.scaPacket}")
+    @Value("${document.scanPacket}")
     private String scanPacket;
 
-    @Value("${su.document.enable}")
+    @Value("${document.enable}")
     private Boolean enable;
 
     @Bean
-    Docket docket() {
+    public Docket docket() {
         return new Docket(DocumentationType.OAS_30)
                 .enable(enable)
                 //配置网站的基本信息
@@ -57,6 +58,7 @@ public class SwaggerConfig {
                 .select()
                 //指定接口的位置
                 .apis(RequestHandlerSelectors.basePackage(scanPacket))
+                .paths(PathSelectors.any())
                 .build();
     }
 

@@ -1,8 +1,7 @@
-su:
-  document:
-    title: ${su.document.title} #网站标题
-    description: ${su.document.desciption} #文档描述
-    username: ${su.document.username} #联系人姓名
-    email: ${su.document.email} #联系人邮箱
-    scanPacket: ${su.document.scaPacket} #扫描包的位置
-    enable: ${su.document.enable} #是否禁用swagger文档
+document:
+  title: ${su.document.title} #网站标题
+  description: ${su.document.desciption} #文档描述
+  username: ${su.document.username} #联系人姓名
+  email: ${su.document.email} #联系人邮箱
+  scanPacket: ${su.document.scaPacket} #扫描包的位置
+  enable: ${su.document.enable} #是否禁用swagger文档
