@@ -20,7 +20,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  */
 @Configuration
 @EnableOpenApi
-@LoadFile(filePath = "classpath:/su-document.yml")
 public class SwaggerConfig {
 
     @Value("${document.title}")

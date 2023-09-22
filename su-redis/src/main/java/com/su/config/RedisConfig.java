@@ -23,7 +23,6 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
  */
 @Configuration
 @AutoConfigureBefore(RedisAutoConfiguration.class)
-@LoadFile(filePath = "classpath:/su-redis.yml")
 public class RedisConfig {
 
     /**
