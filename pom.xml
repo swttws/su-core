@@ -13,6 +13,7 @@
         <module>su-load</module>
         <module>su-document</module>
         <module>su-database</module>
+        <module>su-elasticsearch</module>
     </modules>
 
     <properties>
