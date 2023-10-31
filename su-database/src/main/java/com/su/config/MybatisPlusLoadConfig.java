@@ -8,5 +8,5 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @LoadFile(filePath = "classpath:/su-db.yml")
-public class LoadConfig {
+public class MybatisPlusLoadConfig {
 }
