@@ -17,6 +17,11 @@
     </parent>
 
     <dependencies>
+        <dependency>
+            <groupId>com.su</groupId>
+            <artifactId>su-load</artifactId>
+            <version>1.0.0</version>
+        </dependency>
         <!--        数据库相关依赖-->
         <dependency>
             <groupId>mysql</groupId>
