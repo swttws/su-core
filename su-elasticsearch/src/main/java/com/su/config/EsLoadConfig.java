@@ -9,4 +9,5 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @LoadFile(filePath = "classpath:/su-es.yml")
 public class EsLoadConfig {
+
 }
