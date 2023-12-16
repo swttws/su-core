@@ -13,6 +13,11 @@ import java.time.LocalDateTime;
 public class BaseEntity implements Serializable {
 
     /**
+     * 用户id
+     */
+    private Integer id;
+
+    /**
      * 逻辑删除字段，0未删除，1已删除
      */
     private Boolean isDelete;
