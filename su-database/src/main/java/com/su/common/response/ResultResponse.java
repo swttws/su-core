@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResultResponse<T> {
+public class ResultResponse {
 
     /**
      * 状态码
@@ -27,7 +27,7 @@ public class ResultResponse<T> {
     /**
      * 返回数据
      */
-    private T data;
+    private Object data;
 
     /**
      * 成功返回信息
