@@ -4,8 +4,8 @@ import com.su.common.response.ResultResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 /**
  * @author swt
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
  * 全局异常抛出处理器
  */
 @Slf4j
-@ControllerAdvice
+@RestControllerAdvice
 public class GlobalExceptionHandler {
 
     @Value("spring.redis.nameSpace")
